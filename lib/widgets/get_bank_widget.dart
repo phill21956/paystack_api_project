@@ -27,9 +27,9 @@ class _GetBankWidgetState extends State<GetBankWidget> with ApiPageMixin {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var listOfBankNames =
-              snapshot.data?.data.map((bank) => bank.name).toList();
+              snapshot.data?.data.map((bank) => bank).toList();
           return Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 10),
             child: DropdownButton<String>(
               value: dropDownValue,
               onChanged: (newValue) {
@@ -39,8 +39,10 @@ class _GetBankWidgetState extends State<GetBankWidget> with ApiPageMixin {
               },
               items: listOfBankNames?.map((bankName) {
                 return DropdownMenuItem<String>(
-                  value: bankName,
-                  child: Text(bankName),
+                  value: bankName.name,
+                  child: Text(
+                    'Bank: ${bankName.name}\nBank Code: ${bankName.code}',
+                  ),
                 );
               }).toList(),
             ),
