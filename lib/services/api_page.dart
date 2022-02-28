@@ -3,23 +3,42 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:paystack_api_project/model/bank_model.dart';
 
-mixin ApiPageMixin {
-  Future<List<GetBank>> getBank() async {
-    final response = await http.get(Uri.parse('https://api.paystack.co/bank'));
-    try {
-      if (response.statusCode == 200) {
-          List<dynamic> body = jsonDecode(response.body);
+// mixin ApiPageMixin {
+//   Future<GetBank> getBank() async {
+//      var client = http.Client();
+//     // ignore: prefer_typing_uninitialized_variables
+//     var getBank;
 
-        List<GetBank> banks = body
-            .map(
-              (dynamic item) => GetBank.fromJson(item),
-            )
-            .toList();
-            return banks;
-      }
-    } catch (e) {
-      throw 'Unable to retrieve banks';
+//     try {
+//       final response =
+//           await client.get(Uri.parse('https://api.paystack.co/bank'));
+//       if (response.statusCode == 200) {
+//        var jsonString = response.body;
+//         var jsonMap = json.decode(jsonString);
+
+//         getBank = GetBank.fromJson(jsonMap);
+//       }
+//     } catch (e) {
+//       return getBank;
+//     }
+//     return getBank;
+//   }
+// }
+
+///USING MAP
+mixin ApiPageMixin {
+  Future<GetBank> getBank() async {
+    var client = http.Client();
+
+    final response =
+        await client.get(Uri.parse('https://api.paystack.co/bank'));
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+
+    var  getbanks = GetBank.fromJson(body);
+      return getbanks;
+    } else {
+      throw "Unable to retrieve posts.";
     }
-    return [];
   }
 }

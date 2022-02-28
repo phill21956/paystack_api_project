@@ -11,38 +11,39 @@ class GetBankWidget extends StatefulWidget {
 }
 
 class _GetBankWidgetState extends State<GetBankWidget> with ApiPageMixin {
-  // late Future<GetBank> banks;
+  late Future<GetBank> _getBanks;
+  String dropDownValue = 'Abbey Mortgage Bank';
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   banks = getBank();
-  // }
+  @override
+  void initState() {
+    _getBanks = getBank();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<GetBank>>(
-      future: getBank(),
-      builder: (_, snapshot) {
+    return FutureBuilder<GetBank>(
+      future: _getBanks,
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
-         // List<GetBank>? banks = snapshot.data;
-
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, banks) {
-              return Card(
-                child: ListTile(
-                  title: Text(snapshot.data as String),
-                ),
-              );
-            },
-            // children: banks!
-            //     .map((GetBank banks) => Card(
-            //           child: ListTile(
-            //             title: Text(banks.name),
-            //           ),
-            //         ))
-            //     .toList(),
+          var listOfBankNames =
+              snapshot.data?.data.map((bank) => bank.name).toList();
+          return Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: DropdownButton<String>(
+              value: dropDownValue,
+              onChanged: (newValue) {
+                setState(() {
+                  dropDownValue = newValue!;
+                });
+              },
+              items: listOfBankNames?.map((bankName) {
+                return DropdownMenuItem<String>(
+                  value: bankName,
+                  child: Text(bankName),
+                );
+              }).toList(),
+            ),
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
@@ -52,3 +53,52 @@ class _GetBankWidgetState extends State<GetBankWidget> with ApiPageMixin {
     );
   }
 }
+
+///USING MAP
+//  FutureBuilder<GetBank>(
+//       future: getBank(),
+//       builder: (context,  snapshot) {
+//         if (snapshot.hasData) {
+//           List<Datum> banks = snapshot.data!.data;
+//           return ListView(
+//             children: banks
+//                 .map(
+//                   (Datum banks) => ListTile(
+//                     title: Text(banks.name),
+                   
+//                   ),
+//                 )
+//                 .toList(),
+//           );
+//         } else if (snapshot.hasError) {
+//           return Text('${snapshot.error}');
+//         }
+//         return const Center(child: Text('Loading...'));
+//       },
+//     );
+
+
+
+///USING LISTVIEW.BUILDER
+//  FutureBuilder<GetBank>(
+//       future: _getBanks,
+//       builder: (context, snapshot) {
+//         if (snapshot.hasData) {
+//           return ListView.builder(
+//             itemCount: snapshot.data!.data.length,
+//             itemBuilder: (context, index) {
+//               var banks = snapshot.data!.data[index];
+//               return Card(
+//                 child: ListTile(
+//                   title: Text(banks.name[index]),
+//                  // subtitle: Text(banks.code),
+//                 ),
+//               );
+//             },
+//           );
+//         } else if (snapshot.hasError) {
+//           return Text('${snapshot.error}');
+//         }
+//         return const Center(child: Text('Loading...'));
+//       },
+//     );
