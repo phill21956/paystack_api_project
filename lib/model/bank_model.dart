@@ -2,7 +2,6 @@
 //
 //     final getBank = getBankFromJson(jsonString);
 
-
 import 'dart:convert';
 
 GetBank getBankFromJson(String str) => GetBank.fromJson(json.decode(str));
@@ -36,35 +35,35 @@ class GetBank {
 class Datum {
   Datum({
     required this.name,
-    required this.slug,
+    this.slug,
     required this.code,
-    required this.longcode,
-    required this.gateway,
-    required this.payWithBank,
-    required this.active,
-    required this.isDeleted,
-    required this.country,
-    required this.currency,
-    required this.type,
-    required this.id,
-    required this.createdAt,
-    required this.updatedAt,
+    this.longcode,
+    this.gateway,
+    this.payWithBank,
+    this.active,
+    this.isDeleted,
+    this.country,
+    this.currency,
+    this.type,
+    this.id,
+    this.createdAt,
+    this.updatedAt,
   });
 
   final String name;
-  final String slug;
+  final String? slug;
   final String code;
-  final String longcode;
+  final String? longcode;
   final Object? gateway;
-  final bool payWithBank;
-  final bool active;
+  final bool? payWithBank;
+  final bool? active;
   final Object? isDeleted;
-  final String country;
-  final String currency;
-  final String type;
-  final int id;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String? country;
+  final String? currency;
+  final String? type;
+  final int? id;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         name: json["name"],
@@ -96,8 +95,8 @@ class Datum {
         "currency": currencyValues.reverse[currency],
         "type": typeValues.reverse[type],
         "id": id,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
       };
 }
 
@@ -115,7 +114,7 @@ final typeValues = EnumValues({"nuban": Type.NUBAN});
 
 class EnumValues<T> {
   Map<String, T> map;
- late Map<T, String> reverseMap;
+  late Map<T, String> reverseMap;
 
   EnumValues(this.map);
 
