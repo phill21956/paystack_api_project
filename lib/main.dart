@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paystack_api_project/pages/home_page.dart';
 import 'package:logging/logging.dart';
 
 void main() {
   setUpLogging();
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 void setUpLogging() {

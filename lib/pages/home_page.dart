@@ -14,8 +14,7 @@ class HomePage extends StatelessWidget with ApiPageMixin {
         title: const Text('APIs'),
       ),
       body: SingleChildScrollView(
-        // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        reverse: true,
+         reverse: true,
         child: Column(
           children: const [
             GetBankWidget(),

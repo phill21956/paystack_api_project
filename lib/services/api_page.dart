@@ -29,7 +29,7 @@ import '../key/key.dart';
 // }
 
 ///USING MAP
-mixin ApiPageMixin {
+class ApiPageMixin {
   Future<GetBank> getBank() async {
     var client = http.Client();
 
@@ -46,8 +46,8 @@ mixin ApiPageMixin {
   }
 
   Future<ResolveBank> resolveBank(
-    String accountNumber,
-    String bankCode,
+    String? accountNumber,
+    String? bankCode,
   ) async {
     String resolveBankUrl =
         'https://api.paystack.co/bank/resolve?account_number=$accountNumber&bank_code=$bankCode';
