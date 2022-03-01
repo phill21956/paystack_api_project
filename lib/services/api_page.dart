@@ -46,8 +46,8 @@ mixin ApiPageMixin {
   }
 
   Future<ResolveBank> resolveBank(
-    final int accountNumber,
-    final int bankCode,
+    String accountNumber,
+    String bankCode,
   ) async {
     String resolveBankUrl =
         'https://api.paystack.co/bank/resolve?account_number=$accountNumber&bank_code=$bankCode';

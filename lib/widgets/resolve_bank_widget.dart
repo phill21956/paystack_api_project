@@ -55,7 +55,7 @@ class _ResolveBankWidgetState extends State<ResolveBankWidget>
           onPressed: () {
             setState(() {
               accountNumber = resolveBank(
-                  int.parse(_controller.text), int.parse(_controller2.text));
+                  _controller.text, _controller2.text);
             });
           },
           child: const Text('Confirm Number'),
